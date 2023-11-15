@@ -1,0 +1,1 @@
+recursive-include ees_manager/locale *.po *.mo

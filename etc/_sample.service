@@ -1,0 +1,17 @@
+[Unit]
+Description=Enterprise Api Gateway service
+After=syslog.target network.target
+Wants=redis.service mysqld.service
+
+[Service]
+ExecStart=/usr/bin/es_agw -f /etc/ees_manager/es_agw.conf
+# ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -1 $(cat /run/ees_manager/es_agw.pid)
+
+Restart=on-failure
+StartLimitInterval=30min
+StartLimitBurst=30
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
